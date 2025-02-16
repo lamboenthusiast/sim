@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  ml-backend:
+    build: 
+      context: ./backend/ninja_backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - MODEL_NAME=facebook/opt-1.3b
+      - BLOCK_SIZE=128
+      - FRONTEND_URL=http://localhost:3000
+    volumes:
+      - ./models:/app/models
+      # Do not mount Messages database in container
+      # iMessage access must be done locally
